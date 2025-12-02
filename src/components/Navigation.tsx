@@ -5,6 +5,7 @@ import { NavLink } from "@/components/NavLink";
 
 const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   const menuItems = [
     {
@@ -87,40 +88,47 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
+    <nav className="sticky top-0 left-0 right-0 z-50 border-b border-border bg-white/95 backdrop-blur-lg shadow-sm">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <NavLink to="/" className="flex items-center space-x-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
               <span className="text-lg font-bold text-primary-foreground">AP</span>
             </div>
-            <span className="text-lg font-semibold">AbhishekPanda</span>
+            <span className="text-lg font-semibold text-foreground">AbhishekPanda</span>
           </NavLink>
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center space-x-1">
             {menuItems.map((menu) => (
-              <div key={menu.title} className="group relative">
-                <button className="flex items-center space-x-1 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+              <div 
+                key={menu.title} 
+                className="relative"
+                onMouseEnter={() => setActiveDropdown(menu.title)}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
+                <button className="flex items-center space-x-1 px-4 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors rounded-md hover:bg-accent">
                   <span>{menu.title}</span>
                   <ChevronDown className="h-4 w-4" />
                 </button>
                 
                 {/* Dropdown */}
-                <div className="invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200 absolute top-full left-0 pt-2">
-                  <div className="bg-card border border-border rounded-lg shadow-lg min-w-[220px] p-2 backdrop-blur-xl">
-                    {menu.items.map((item) => (
-                      <NavLink
-                        key={item.label}
-                        to={item.href}
-                        className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors"
-                      >
-                        {item.label}
-                      </NavLink>
-                    ))}
+                {activeDropdown === menu.title && (
+                  <div className="absolute top-full left-0 pt-2 z-50">
+                    <div className="bg-white border border-border rounded-lg shadow-xl min-w-[240px] p-2 animate-fade-in">
+                      {menu.items.map((item) => (
+                        <NavLink
+                          key={item.label}
+                          to={item.href}
+                          className="block px-4 py-2.5 text-sm text-foreground hover:text-primary hover:bg-accent rounded-md transition-colors"
+                        >
+                          {item.label}
+                        </NavLink>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             ))}
           </div>
@@ -142,26 +150,26 @@ const Navigation = () => {
 
           {/* Mobile menu button */}
           <button
-            className="lg:hidden p-2"
+            className="lg:hidden p-2 rounded-md hover:bg-accent"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            {mobileMenuOpen ? <X /> : <Menu />}
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-border py-4 animate-fade-in">
+          <div className="lg:hidden border-t border-border py-4 max-h-[80vh] overflow-y-auto animate-fade-in">
             <div className="space-y-4">
               {menuItems.map((menu) => (
                 <div key={menu.title} className="space-y-2">
-                  <div className="font-semibold text-sm px-4">{menu.title}</div>
+                  <div className="font-semibold text-sm px-4 text-foreground">{menu.title}</div>
                   <div className="space-y-1">
                     {menu.items.map((item) => (
                       <NavLink
                         key={item.label}
                         to={item.href}
-                        className="block px-6 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+                        className="block px-6 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-accent transition-colors"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         {item.label}
@@ -172,10 +180,10 @@ const Navigation = () => {
               ))}
               <div className="border-t border-border pt-4 px-4 space-y-2">
                 <NavLink to="/about" className="block" onClick={() => setMobileMenuOpen(false)}>
-                  <Button variant="ghost" className="w-full">About</Button>
+                  <Button variant="ghost" className="w-full justify-start">About</Button>
                 </NavLink>
                 <NavLink to="/login" className="block" onClick={() => setMobileMenuOpen(false)}>
-                  <Button variant="ghost" className="w-full">Login</Button>
+                  <Button variant="ghost" className="w-full justify-start">Login</Button>
                 </NavLink>
                 <NavLink to="/signup" className="block" onClick={() => setMobileMenuOpen(false)}>
                   <Button className="w-full bg-primary text-primary-foreground">Get Started</Button>

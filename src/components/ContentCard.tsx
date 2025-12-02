@@ -12,9 +12,9 @@ interface ContentCardProps {
 
 const ContentCard = ({ title, description, badge, image, tags = [] }: ContentCardProps) => {
   return (
-    <div className="group relative overflow-hidden rounded-xl border border-border bg-card transition-all hover:border-primary/50 hover-glow">
+    <div className="group relative overflow-hidden rounded-xl border border-border bg-white shadow-sm transition-all hover:shadow-lg hover:border-primary/50">
       {/* Image */}
-      <div className="relative h-48 overflow-hidden bg-gradient-to-br from-primary/20 to-primary/5">
+      <div className="relative h-48 overflow-hidden bg-gradient-to-br from-primary/20 to-blue-500/10">
         {image ? (
           <img src={image} alt={title} className="h-full w-full object-cover transition-transform group-hover:scale-105" />
         ) : (
@@ -23,7 +23,7 @@ const ContentCard = ({ title, description, badge, image, tags = [] }: ContentCar
           </div>
         )}
         {badge && (
-          <Badge className="absolute top-3 left-3 bg-primary text-primary-foreground">
+          <Badge className="absolute top-3 left-3 bg-primary text-primary-foreground shadow-md">
             {badge}
           </Badge>
         )}
@@ -31,7 +31,7 @@ const ContentCard = ({ title, description, badge, image, tags = [] }: ContentCar
 
       {/* Content */}
       <div className="p-6">
-        <h3 className="mb-2 text-lg font-semibold group-hover:text-primary transition-colors">
+        <h3 className="mb-2 text-lg font-semibold group-hover:text-primary transition-colors text-foreground">
           {title}
         </h3>
         <p className="mb-4 text-sm text-muted-foreground line-clamp-2">
@@ -50,7 +50,7 @@ const ContentCard = ({ title, description, badge, image, tags = [] }: ContentCar
         )}
 
         {/* CTA */}
-        <Button variant="ghost" size="sm" className="group/btn w-full">
+        <Button variant="ghost" size="sm" className="group/btn w-full hover:bg-accent">
           Learn More
           <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
         </Button>

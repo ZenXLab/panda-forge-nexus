@@ -3,24 +3,24 @@ import { ArrowRight, Sparkles, Code2, Workflow, BookOpen } from "lucide-react";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-16">
-      {/* Background effects */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-card" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent" />
+    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden pt-16 bg-gradient-to-b from-white via-gray-50 to-white">
+      {/* Background pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:4rem_4rem]" />
       
-      {/* Animated grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f15_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f15_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+      {/* Gradient orbs */}
+      <div className="absolute top-20 right-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 left-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
 
       <div className="container relative z-10 mx-auto px-4 py-20">
         <div className="mx-auto max-w-5xl text-center space-y-8">
           {/* Badge */}
-          <div className="inline-flex items-center space-x-2 rounded-full border border-border bg-card/50 px-4 py-1.5 text-sm backdrop-blur-sm animate-fade-in">
+          <div className="inline-flex items-center space-x-2 rounded-full border border-border bg-white px-4 py-1.5 text-sm shadow-sm animate-fade-in">
             <Sparkles className="h-4 w-4 text-primary" />
             <span className="text-muted-foreground">100+ Premium Courses & Projects</span>
           </div>
 
           {/* Main headline */}
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight animate-fade-up">
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground animate-fade-up">
             Build, Learn, and <span className="text-gradient">Automate</span> the Future
           </h1>
 
@@ -37,20 +37,20 @@ const Hero = () => {
               { icon: Code2, text: "Build Real Projects" },
               { icon: Workflow, text: "Automate Everything" },
             ].map((item, i) => (
-              <div key={i} className="flex items-center space-x-2 rounded-lg border border-border bg-card/50 px-4 py-2 backdrop-blur-sm">
+              <div key={i} className="flex items-center space-x-2 rounded-lg border border-border bg-white px-4 py-2 shadow-sm">
                 <item.icon className="h-4 w-4 text-primary" />
-                <span>{item.text}</span>
+                <span className="text-foreground">{item.text}</span>
               </div>
             ))}
           </div>
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 animate-fade-up" style={{ animationDelay: "0.3s" }}>
-            <Button size="lg" className="group bg-primary text-primary-foreground hover:bg-primary/90 hover-glow">
+            <Button size="lg" className="group bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all">
               Start Learning
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button size="lg" variant="outline" className="border-glow">
+            <Button size="lg" variant="outline" className="shadow-sm hover:shadow-md transition-all">
               Explore Projects
             </Button>
           </div>
@@ -74,9 +74,6 @@ const Hero = () => {
           </div>
         </div>
       </div>
-
-      {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
     </section>
   );
 };

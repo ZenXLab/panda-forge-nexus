@@ -1,0 +1,175 @@
+/* Verification Scene Fallback Styles */
+
+.verification-scene {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #030712;
+  overflow: hidden;
+}
+
+.verification-scene canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Fallback gradient background when WebGL not available */
+.verification-fallback {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 30% 20%, rgba(0, 228, 255, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(26, 102, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at center, rgba(0, 228, 255, 0.05) 0%, transparent 70%),
+    #030712;
+}
+
+/* Animated fallback dots */
+.verification-fallback::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 20% 30%, #00E4FF 1px, transparent 1px),
+    radial-gradient(circle at 80% 70%, #1A66FF 1px, transparent 1px),
+    radial-gradient(circle at 50% 50%, #00E4FF 1.5px, transparent 1.5px);
+  background-size: 100px 100px, 150px 150px, 80px 80px;
+  animation: floatDots 20s linear infinite;
+  opacity: 0.3;
+}
+
+@keyframes floatDots {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+/* Loading spinner */
+.verification-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.verification-spinner {
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(0, 228, 255, 0.3);
+  border-top-color: #00E4FF;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Status badge styles */
+.verification-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  backdrop-filter: blur(8px);
+}
+
+.verification-status--idle {
+  background: rgba(26, 102, 255, 0.1);
+  border: 1px solid rgba(26, 102, 255, 0.3);
+  color: #1A66FF;
+}
+
+.verification-status--processing {
+  background: rgba(0, 228, 255, 0.1);
+  border: 1px solid rgba(0, 228, 255, 0.3);
+  color: #00E4FF;
+}
+
+.verification-status--completed {
+  background: rgba(0, 255, 138, 0.1);
+  border: 1px solid rgba(0, 255, 138, 0.3);
+  color: #00FF8A;
+}
+
+.verification-status--failed {
+  background: rgba(255, 77, 109, 0.1);
+  border: 1px solid rgba(255, 77, 109, 0.3);
+  color: #FF4D6D;
+}
+
+/* Pulse animation for status indicator */
+.verification-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Scanner sweep effect (CSS fallback) */
+.verification-scanner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: #00E4FF;
+  animation: scannerSweep 3s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes scannerSweep {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) scale(0.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg) scale(2);
+    opacity: 0;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .verification-fallback::before {
+    background-size: 60px 60px, 90px 90px, 50px 50px;
+    animation-duration: 30s;
+  }
+  
+  .verification-scanner {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+/* Accessibility: reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .verification-fallback::before,
+  .verification-spinner,
+  .verification-scanner,
+  .verification-pulse {
+    animation: none;
+  }
+}

@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import ComingSoon from "./pages/ComingSoon";
 import NotFound from "./pages/NotFound";
+import Verification from "./pages/Verification";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +43,10 @@ const App = () => (
           
           {/* Mentorship routes */}
           <Route path="/mentorship/*" element={<ComingSoon />} />
+          
+          {/* Verification routes */}
+          <Route path="/verification" element={<Verification />} />
+          <Route path="/dashboard/verification-home" element={<Verification />} />
           
           {/* Other routes */}
           <Route path="/about" element={<ComingSoon />} />
